@@ -68,4 +68,6 @@ class ChangePasswordViewController: UIViewController {
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
     }
+    
 }
+

@@ -14,7 +14,6 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,6 +27,9 @@ class LoginViewController: UIViewController {
     
     @IBAction func btnBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func btnResetPassword(_ sender: Any) {
     }
     
     @IBAction func btnLogin(_ sender: Any) {
@@ -66,4 +68,15 @@ class LoginViewController: UIViewController {
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
     }
+    
+    func resetPassword(email: String){
+        Auth.auth().sendPasswordReset(withEmail: email, completion: { (error) in
+            if error == nil {
+                print("dasdas")
+            } else {
+                print(error!.localizedDescription)
+            }
+        })
+    }
+
 }
