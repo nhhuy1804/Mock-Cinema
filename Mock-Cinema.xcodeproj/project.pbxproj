@@ -22,6 +22,9 @@
 		F642765B1EE9708900D9C5E9 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642765A1EE9708900D9C5E9 /* Movie.swift */; };
 		F642765D1EE972E200D9C5E9 /* MovieListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */; };
 		F65018241EE710420079AC88 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65018231EE710410079AC88 /* UserProfileViewController.swift */; };
+		F6BCA4DB1EF243F7002C14E5 /* Carts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BCA4DA1EF243F7002C14E5 /* Carts.swift */; };
+		F6BCA4DE1EF2441B002C14E5 /* CartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BCA4DC1EF2441B002C14E5 /* CartsViewController.swift */; };
+		F6BCA4DF1EF2441B002C14E5 /* CartCellTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BCA4DD1EF2441B002C14E5 /* CartCellTableView.swift */; };
 		F6C3CA8C1EE1912400028722 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C3CA8B1EE1912400028722 /* AppDelegate.swift */; };
 		F6C3CA911EE1912400028722 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6C3CA8F1EE1912400028722 /* Main.storyboard */; };
 		F6C3CA931EE1912400028722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6C3CA921EE1912400028722 /* Assets.xcassets */; };
@@ -46,6 +49,9 @@
 		F642765A1EE9708900D9C5E9 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListTableViewCell.swift; sourceTree = "<group>"; };
 		F65018231EE710410079AC88 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		F6BCA4DA1EF243F7002C14E5 /* Carts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carts.swift; sourceTree = "<group>"; };
+		F6BCA4DC1EF2441B002C14E5 /* CartsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartsViewController.swift; sourceTree = "<group>"; };
+		F6BCA4DD1EF2441B002C14E5 /* CartCellTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCellTableView.swift; sourceTree = "<group>"; };
 		F6C3CA881EE1912400028722 /* Mock-Cinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mock-Cinema.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C3CA8B1EE1912400028722 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6C3CA901EE1912400028722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,6 +102,8 @@
 				F63B0CC41EEEDB41000CF286 /* ChooseSeatViewController.swift */,
 				F63B0CC91EEEDE91000CF286 /* SeatCellCollectionView.swift */,
 				7810247B1EF11F1B004451E1 /* NetworkViewController.swift */,
+				F6BCA4DC1EF2441B002C14E5 /* CartsViewController.swift */,
+				F6BCA4DD1EF2441B002C14E5 /* CartCellTableView.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -106,6 +114,7 @@
 				F64276581EE9705400D9C5E9 /* Download.swift */,
 				F642765A1EE9708900D9C5E9 /* Movie.swift */,
 				F63B0CC71EEEDBF7000CF286 /* Seat.swift */,
+				F6BCA4DA1EF243F7002C14E5 /* Carts.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -275,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6BCA4DE1EF2441B002C14E5 /* CartsViewController.swift in Sources */,
 				F63B0CC51EEEDB41000CF286 /* ChooseSeatViewController.swift in Sources */,
 				3888F5D71EE2AB7D006BE831 /* LoginViewController.swift in Sources */,
 				F63B0CC81EEEDBF7000CF286 /* Seat.swift in Sources */,
@@ -285,9 +295,11 @@
 				38E89AC11EE7DC8A007AB117 /* MovieListViewController.swift in Sources */,
 				F64276591EE9705400D9C5E9 /* Download.swift in Sources */,
 				F63B0CC31EEBAD0F000CF286 /* MovieDetailViewController.swift in Sources */,
+				F6BCA4DF1EF2441B002C14E5 /* CartCellTableView.swift in Sources */,
 				F63B0CCA1EEEDE91000CF286 /* SeatCellCollectionView.swift in Sources */,
 				F642765B1EE9708900D9C5E9 /* Movie.swift in Sources */,
 				F642765D1EE972E200D9C5E9 /* MovieListTableViewCell.swift in Sources */,
+				F6BCA4DB1EF243F7002C14E5 /* Carts.swift in Sources */,
 				3888F5D91EE2B075006BE831 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

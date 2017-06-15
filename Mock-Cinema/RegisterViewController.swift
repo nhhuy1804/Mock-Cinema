@@ -31,7 +31,7 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func btnBack(_ sender: Any) {
-        self.performSegue(withIdentifier: "goLogin", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func btnAccept(_ sender: Any) {
