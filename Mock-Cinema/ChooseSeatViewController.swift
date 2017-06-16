@@ -18,6 +18,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
     var count = 0
     var seats = [Seat]()
 
+    @IBOutlet weak var fllSeat: UICollectionViewFlowLayout!
     @IBOutlet weak var clvSeat: UICollectionView!
     @IBOutlet weak var btnScreen1: UIButton!
     @IBOutlet weak var btnScreen2: UIButton!
@@ -27,14 +28,42 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
         self.clvSeat.dataSource = self
         self.clvSeat.delegate = self
-        screenId = "screen1"
+        //screenId = "screen1"
+        
+        
+        seatFlowLayout()
+        
+        if getDateTime()[3] <= 9 {
+            screenId = "screen1"
+            time = "9:00"
+            btnScreen1.isSelected = true
+            btnScreen2.isSelected = false
+            btnScreen3.isSelected = false
+        } else if getDateTime()[3] > 9 && getDateTime()[3] <= 15 {
+            screenId = "screen2"
+            time = "15:00"
+            btnScreen1.isSelected = false
+            btnScreen1.isEnabled = false
+            btnScreen2.isSelected = true
+            btnScreen3.isSelected = false
+        } else {
+            screenId = "screen3"
+            time = "20:00"
+            btnScreen1.isSelected = false
+            btnScreen1.isEnabled = false
+            btnScreen2.isSelected = false
+            btnScreen2.isEnabled = false
+            btnScreen3.isSelected = true
+        }
+        
         getSeats()
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func seatFlowLayout() {
+        let maxItemRow = 6
+        let width = (clvSeat.frame.width - fllSeat.sectionInset.left - fllSeat.sectionInset.right - fllSeat.minimumInteritemSpacing * CGFloat(maxItemRow - 1)) / CGFloat(maxItemRow)
+        fllSeat.itemSize = CGSize(width: width, height: width)
     }
     
     @IBAction func btnScreen1(_ sender: Any) {
@@ -64,21 +93,32 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
     @IBAction func btnBuy(_ sender: Any) {
         let databaseRef = Database.database().reference()
         let userID = Auth.auth().currentUser?.uid
+        var cout = 0
         for seat in seats {
             if seat.status == 2 {
                 let seatID = seat.id
-                let currentDate = Date()
+                let currentDate = "\(getDateTime()[0])-\(getDateTime()[1])-\(getDateTime()[2]) \(getDateTime()[3]):\(getDateTime()[4])"
                 if let movieId = movie?.id, let movieTitle = movie?.title {
                     databaseRef.child("movie").child("\(movieId)").child("bookTicket").child(screenId).child(seat.id!).setValue(["id": seat.id!, "col": seat.col!, "row": seat.row!, "status": 1])
-                    databaseRef.child("users").child(userID!).child("carts").childByAutoId().setValue(["movieID": movieId, "title": movieTitle, "seat": seatID ?? String(), "time": time, "date": String(describing: currentDate)])
+                    databaseRef.child("users").child(userID!).child("carts").childByAutoId().setValue(["movieID": movieId, "title": movieTitle, "seat": seatID ?? String(), "time": time, "date": currentDate])
                 }
-                
+                cout += 1
             }
         }
         //screenId = "screen3"
         seats.removeAll()
         getSeats()
         clvSeat.reloadData()
+        
+        let myAlert = UIAlertController(title: "Alert", message: "The amout paid is \(cout * 50000)", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { action in
+            //self.dismiss(animated: true, completion: nil)
+            let src = self.storyboard?.instantiateViewController(withIdentifier: "Carts") as! CartsViewController
+            self.present(src, animated: true)
+        }
+        myAlert.addAction(okAction)
+        self.present(myAlert, animated: true, completion: nil)
     }
     
     @IBAction func btnBack(_ sender: Any) {
@@ -137,5 +177,17 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
+    }
+    
+    func getDateTime() -> [Int] {
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        let result = [year, month, day, hour, minute]
+        return result
     }
 }

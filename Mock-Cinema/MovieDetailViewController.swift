@@ -18,13 +18,16 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var lblOriginalLanguage: UILabel!
     @IBOutlet weak var lblBudget: UILabel!
     @IBOutlet weak var lblRunTime: UILabel!
+    @IBOutlet weak var btnBookTicketNow: UIButton!
     
     var image: UIImage?
     var movie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         loadMovieDetail()
+        showButtonBook()
         // Do any additional setup after loading the view.
     }
 
@@ -78,4 +81,24 @@ class MovieDetailViewController: UIViewController {
         
     }
     
+    //get date from database
+    func getDate(releaseInformation: String, interval: Double) -> Date {
+        let dateFormat = DateFormatter()
+        dateFormat.dateStyle = DateFormatter.Style.short
+        var date = dateFormat.date(from: releaseInformation)
+        date?.addTimeInterval(interval)
+        return date!
+    }
+    
+    // get movies playing now
+    func showButtonBook() {
+        let dateNow = Date()
+        if (getDate(releaseInformation: (movie?.releaseInformation!)!, interval: 0) <= dateNow && dateNow <= getDate(releaseInformation: (movie?.releaseInformation!)!, interval: 1209600)) {
+            btnBookTicketNow.isHidden = false
+        } else if (getDate(releaseInformation: (movie?.releaseInformation!)!, interval: 1209600) < dateNow) {
+            btnBookTicketNow.isHidden = true
+        } else if (getDate(releaseInformation: (movie?.releaseInformation!)!, interval: 0) > dateNow) {
+            btnBookTicketNow.isHidden = true
+        }
+    }
 }

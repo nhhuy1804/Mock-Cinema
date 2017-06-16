@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class MovieListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet weak var loginLogoutBtn: UIButton!
     @IBOutlet weak var helloBtn: UIButton!
     @IBOutlet weak var tbvMovieList: UITableView!
@@ -18,23 +19,19 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var btnPlayingNow: UIButton!
     @IBOutlet weak var btnComingSoon: UIButton!
     
-    
     var movies = [Movie]()
     var moviesStatus = [Movie]()
     var posterImage: [Int:UIImage] = [:]
+    var filteredMovie = [Movie]()
     
     let searchController = UISearchController(searchResultsController: nil)
-    
-    var filteredMovie = [Movie]()
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         filteredMovie = moviesStatus.filter { movie in
             return (movie.title?.lowercased().contains(searchText.lowercased()))!
         }
-        
         tbvMovieList.reloadData()
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +40,6 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         definesPresentationContext = true
         tbvMovieList.tableHeaderView = searchController.searchBar
         
-
         //user is not login
         if Auth.auth().currentUser?.uid == nil {
             helloBtn.isHidden = true
@@ -69,7 +65,6 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         btnComingSoon.setTitleColor(UIColor.red, for: .normal)
         
         getMovies()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,6 +135,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         btnPlayingNow.setTitleColor(UIColor.red, for: .normal)
         btnOldMovies.setTitleColor(UIColor.red, for: .normal)
         btnComingSoon.setTitleColor(UIColor.white, for: .normal)
+        
         getComingSoon()
     }
     
