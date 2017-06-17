@@ -141,7 +141,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         getSeats()
         clvSeat.reloadData()
         
-        let myAlert = UIAlertController(title: "Alert", message: "The amout paid is \(count * 50000)", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title: "Alert", message: "Choose seats successful", preferredStyle: UIAlertControllerStyle.alert)
         
         let payAction = UIAlertAction(title: "Pay", style: UIAlertActionStyle.default) { action in
             //self.dismiss(animated: true, completion: nil)
