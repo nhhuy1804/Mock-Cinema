@@ -47,12 +47,39 @@ class CartsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.lblSeat.text = "Seat: " + cart.seat!
         cell.lblTime.text = "Time: " + cart.time!
         cell.lblMovie.text = "Movie: " + cart.title!
+        cell.lblStatus.text = "Status: " + cart.status!
         
         return cell
     }
     
     @IBAction func btnBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func btnPay(_ sender: Any) {
+        let databaseRef = Database.database().reference()
+        let userID = Auth.auth().currentUser?.uid
+        var count = 0
+        
+        for cart in carts {
+            if cart.status == "Unpaid" {
+                databaseRef.child("users").child(userID!).child("carts").child(cart.date! + cart.seat!).setValue(["seat": cart.seat!, "status": "Paid", "time": cart.time, "date": cart.date, "title": cart.title!])
+                count += 1
+            }
+        }
+        
+        if count == 0 {
+            displayMyAlertMessage(userMessage: "You already paid")
+        } else {
+            
+            displayMyAlertMessage(userMessage: "The amout paid is \(count * 50000)")
+            carts.removeAll()
+            getCarts()
+            tbvCart.reloadData()
+        }
+        carts.removeAll()
+        getCarts()
+        tbvCart.reloadData()
     }
     
     // get cart
@@ -67,5 +94,15 @@ class CartsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.tbvCart.reloadData()
             }
         })
+    }
+    
+    // Function Alert message
+    func displayMyAlertMessage(userMessage: String) {
+        let myAlert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+        
+        myAlert.addAction(okAction)
+        self.present(myAlert, animated: true, completion: nil)
     }
 }

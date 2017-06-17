@@ -36,24 +36,34 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         if getDateTime()[3] <= 9 {
             screenId = "screen1"
             time = "9:00"
-            btnScreen1.isSelected = true
-            btnScreen2.isSelected = false
-            btnScreen3.isSelected = false
+            
+            btnScreen1.backgroundColor = UIColor.brown
+            btnScreen2.backgroundColor = UIColor.red
+            btnScreen3.backgroundColor = UIColor.red
+            btnScreen1.isEnabled = false
+            btnScreen2.isEnabled = true
+            btnScreen3.isEnabled = true
+            
         } else if getDateTime()[3] > 9 && getDateTime()[3] <= 15 {
             screenId = "screen2"
             time = "15:00"
-            btnScreen1.isSelected = false
+            
+            btnScreen1.isHidden = true
+            btnScreen2.backgroundColor = UIColor.brown
+            btnScreen3.backgroundColor = UIColor.red
             btnScreen1.isEnabled = false
-            btnScreen2.isSelected = true
-            btnScreen3.isSelected = false
+            btnScreen2.isEnabled = true
+            btnScreen3.isEnabled = true
         } else {
             screenId = "screen3"
             time = "20:00"
-            btnScreen1.isSelected = false
+            
+            btnScreen1.isHidden = true
+            btnScreen2.isHidden = true
+            btnScreen3.backgroundColor = UIColor.brown
             btnScreen1.isEnabled = false
-            btnScreen2.isSelected = false
             btnScreen2.isEnabled = false
-            btnScreen3.isSelected = true
+            btnScreen3.isEnabled = true
         }
         
         getSeats()
@@ -70,6 +80,12 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         seats.removeAll()
         screenId = "screen1"
         time = "9:00"
+        btnScreen1.backgroundColor = UIColor.brown
+        btnScreen2.backgroundColor = UIColor.red
+        btnScreen3.backgroundColor = UIColor.red
+        btnScreen1.isEnabled = false
+        btnScreen2.isEnabled = true
+        btnScreen3.isEnabled = true
         getSeats()
         clvSeat.reloadData()
     }
@@ -78,6 +94,12 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         seats.removeAll()
         screenId = "screen2"
         time = "15:00"
+        btnScreen1.backgroundColor = UIColor.red
+        btnScreen2.backgroundColor = UIColor.brown
+        btnScreen3.backgroundColor = UIColor.red
+        btnScreen1.isEnabled = true
+        btnScreen2.isEnabled = false
+        btnScreen3.isEnabled = true
         getSeats()
         clvSeat.reloadData()
     }
@@ -86,6 +108,12 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         seats.removeAll()
         screenId = "screen3"
         time = "20:00"
+        btnScreen3.backgroundColor = UIColor.brown
+        btnScreen2.backgroundColor = UIColor.red
+        btnScreen1.backgroundColor = UIColor.red
+        btnScreen3.isEnabled = false
+        btnScreen2.isEnabled = true
+        btnScreen1.isEnabled = true
         getSeats()
         clvSeat.reloadData()
     }
@@ -93,31 +121,39 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
     @IBAction func btnBuy(_ sender: Any) {
         let databaseRef = Database.database().reference()
         let userID = Auth.auth().currentUser?.uid
-        var cout = 0
         for seat in seats {
             if seat.status == 2 {
                 let seatID = seat.id
-                let currentDate = "\(getDateTime()[0])-\(getDateTime()[1])-\(getDateTime()[2]) \(getDateTime()[3]):\(getDateTime()[4])"
+                let currentDate = "\(getDateTime()[0])-\(getDateTime()[1])-\(getDateTime()[2]) \(getDateTime()[3]):\(getDateTime()[4]):\(getDateTime()[5])"
                 if let movieId = movie?.id, let movieTitle = movie?.title {
-                    databaseRef.child("movie").child("\(movieId)").child("bookTicket").child(screenId).child(seat.id!).setValue(["id": seat.id!, "col": seat.col!, "row": seat.row!, "status": 1])
-                    databaseRef.child("users").child(userID!).child("carts").childByAutoId().setValue(["movieID": movieId, "title": movieTitle, "seat": seatID ?? String(), "time": time, "date": currentDate])
+                    databaseRef.child("movie").child("\(movieId)").child("bookTicket").child(screenId).child(seat.id!).setValue(["id": seat.id!, "status": 1])
+                    databaseRef.child("users").child(userID!).child("carts").child(currentDate + seat.id!).setValue(["movieID": movieId, "title": movieTitle, "seat": seatID ?? String(), "time": time, "date": currentDate, "status": "Unpaid"])
                 }
-                cout += 1
             }
+            
+            if count == 0 {
+                displayMyAlertMessage(userMessage: "Please choose your seats")
+            }
+            
         }
-        //screenId = "screen3"
+        
         seats.removeAll()
         getSeats()
         clvSeat.reloadData()
         
-        let myAlert = UIAlertController(title: "Alert", message: "The amout paid is \(cout * 50000)", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title: "Alert", message: "The amout paid is \(count * 50000)", preferredStyle: UIAlertControllerStyle.alert)
         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { action in
+        let payAction = UIAlertAction(title: "Pay", style: UIAlertActionStyle.default) { action in
             //self.dismiss(animated: true, completion: nil)
             let src = self.storyboard?.instantiateViewController(withIdentifier: "Carts") as! CartsViewController
             self.present(src, animated: true)
         }
-        myAlert.addAction(okAction)
+        let continueAction = UIAlertAction(title: "Continue", style: UIAlertActionStyle.default) { action in
+            //self.present(myAlert, animated: true, completion: nil)
+        }
+        myAlert.addAction(payAction)
+        myAlert.addAction(continueAction)
+        
         self.present(myAlert, animated: true, completion: nil)
     }
     
@@ -148,7 +184,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             seat.status = 2
             count += 1
         } else if (seat.status == 1) {
-            self.displayMyAlertMessage(userMessage: "Seat was reserved by the other!")
+            self.displayMyAlertMessage(userMessage: "Seat Unavailable")
         }
         else if (seat.status == 2) {
             seat.status = 0
@@ -187,7 +223,8 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         let year = calendar.component(.year, from: date)
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
-        let result = [year, month, day, hour, minute]
+        let second = calendar.component(.second, from: date)
+        let result = [year, month, day, hour, minute, second]
         return result
     }
 }
