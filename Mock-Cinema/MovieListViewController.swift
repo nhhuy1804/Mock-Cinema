@@ -73,8 +73,9 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func btnLoginLogout(_ sender: Any) {
+        searchController.dismiss(animated: true, completion: nil)
         if Auth.auth().currentUser?.uid != nil {
-            // //user is login
+            // user is login
             do {
                 try Auth.auth().signOut()
             } catch let logoutError {
@@ -86,7 +87,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
             loginLogoutBtn.setTitle("Login", for: .normal)
         
         } else {
-            // //user is not login
+            // user is not login
             let srcLogin = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
             self.present(srcLogin, animated: true)
         }

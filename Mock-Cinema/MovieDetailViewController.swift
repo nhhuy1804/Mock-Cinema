@@ -46,12 +46,6 @@ class MovieDetailViewController: UIViewController {
 
     func loadMovieDetail() {
         imgPoster.image = #imageLiteral(resourceName: "loadingImage")
-        /*if let img = Downloader.downloadImageWithURL(movie?.posterURL) {
-            DispatchQueue.main.async {
-                self.imgPoster.image = img
-                
-            }
-        }*/
         OperationQueue().addOperation { () -> Void in
             if let img = Downloader.downloadImageWithURL(self.movie?.posterURL) {
                 OperationQueue.main.addOperation({
@@ -66,7 +60,6 @@ class MovieDetailViewController: UIViewController {
         lblOriginalLanguage.text = "Original Languege: " + (movie?.originalLanguage)!
         lblBudget.text = "Budget: " + (movie?.budget)!
         lblRunTime.text = "Run Time: " + (movie?.runTime)!
-        
     }
     
     @IBAction func btnBack(_ sender: Any) {
@@ -74,11 +67,9 @@ class MovieDetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-                let seatsVC = segue.destination as! ChooseSeatViewController
-                seatsVC.movie = movie
-                seatsVC.screenId = "screen1"
-        
+        let seatsVC = segue.destination as! ChooseSeatViewController
+        seatsVC.movie = movie
+        seatsVC.screenId = "screen1"
     }
     
     //get date from database

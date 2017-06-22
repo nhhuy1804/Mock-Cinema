@@ -73,9 +73,6 @@ class CartsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             
             displayMyAlertMessage(userMessage: "The amout paid is \(count * 50000)")
-            carts.removeAll()
-            getCarts()
-            tbvCart.reloadData()
         }
         carts.removeAll()
         getCarts()

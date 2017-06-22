@@ -29,11 +29,8 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         self.clvSeat.dataSource = self
         self.clvSeat.delegate = self
         //screenId = "screen1"
-        
-        
-        seatFlowLayout()
-        
-        if getDateTime()[3] <= 9 {
+        getSeats()
+        if getDateTime()[3] < 9 {
             screenId = "screen1"
             time = "9:00"
             
@@ -44,7 +41,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             btnScreen2.isEnabled = true
             btnScreen3.isEnabled = true
             
-        } else if getDateTime()[3] > 9 && getDateTime()[3] <= 15 {
+        } else if getDateTime()[3] > 9 && getDateTime()[3] < 15 {
             screenId = "screen2"
             time = "15:00"
             
@@ -54,7 +51,8 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             btnScreen1.isEnabled = false
             btnScreen2.isEnabled = true
             btnScreen3.isEnabled = true
-        } else {
+            
+        } else if getDateTime()[3] > 15 && getDateTime()[3] < 20  {
             screenId = "screen3"
             time = "20:00"
             
@@ -64,16 +62,19 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             btnScreen1.isEnabled = false
             btnScreen2.isEnabled = false
             btnScreen3.isEnabled = true
+        } else {
+            btnScreen1.isHidden = true
+            btnScreen2.isHidden = true
+            btnScreen3.isHidden = true
+            btnScreen1.isEnabled = false
+            btnScreen2.isEnabled = false
+            btnScreen3.isEnabled = false
+            clvSeat.isHidden = true
+            
         }
         
-        getSeats()
+        
         // Do any additional setup after loading the view.
-    }
-    
-    func seatFlowLayout() {
-        let maxItemRow = 6
-        let width = (clvSeat.frame.width - fllSeat.sectionInset.left - fllSeat.sectionInset.right - fllSeat.minimumInteritemSpacing * CGFloat(maxItemRow - 1)) / CGFloat(maxItemRow)
-        fllSeat.itemSize = CGSize(width: width, height: width)
     }
     
     @IBAction func btnScreen1(_ sender: Any) {
