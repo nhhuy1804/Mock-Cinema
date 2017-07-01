@@ -28,8 +28,9 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
         self.clvSeat.dataSource = self
         self.clvSeat.delegate = self
-        //screenId = "screen1"
+        screenId = "screen1"
         getSeats()
+        /*
         if getDateTime()[3] < 9 {
             screenId = "screen1"
             time = "9:00"
@@ -40,6 +41,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             btnScreen1.isEnabled = false
             btnScreen2.isEnabled = true
             btnScreen3.isEnabled = true
+            getSeats()
             
         } else if getDateTime()[3] > 9 && getDateTime()[3] < 15 {
             screenId = "screen2"
@@ -51,6 +53,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             btnScreen1.isEnabled = false
             btnScreen2.isEnabled = true
             btnScreen3.isEnabled = true
+            getSeats()
             
         } else if getDateTime()[3] > 15 && getDateTime()[3] < 20  {
             screenId = "screen3"
@@ -62,6 +65,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             btnScreen1.isEnabled = false
             btnScreen2.isEnabled = false
             btnScreen3.isEnabled = true
+            getSeats()
         } else {
             btnScreen1.isHidden = true
             btnScreen2.isHidden = true
@@ -72,7 +76,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             clvSeat.isHidden = true
             
         }
-        
+        */
         
         // Do any additional setup after loading the view.
     }
@@ -196,8 +200,9 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
     
     func getSeats() {
         let databaseRef = Database.database().reference()
+        let currentDate = "\(getDateTime()[0])-\(getDateTime()[1])-\(getDateTime()[2])"
         if let movieId = movie?.id {
-            databaseRef.child("movie").child("\(movieId)").child("bookTicket").child(screenId).observe(.childAdded, with: {snapshot in
+            databaseRef.child("movie").child("\(movieId)").child("bookTicket").child("\(currentDate)").child(screenId).observe(.childAdded, with: {snapshot in
                 let snapshotValue = snapshot.value as? NSDictionary
                 self.seats.append(Seat(json: snapshotValue as! [String : Any]))
                 DispatchQueue.main.async {
