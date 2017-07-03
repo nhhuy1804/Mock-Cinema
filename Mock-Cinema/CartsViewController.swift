@@ -43,11 +43,12 @@ class CartsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cart = carts[indexPath.row]
         
-        cell.lblDate.text = cart.date
+        cell.lblDate.text = cart.bookingDate
         cell.lblSeat.text = "Seat: " + cart.seat!
         cell.lblTime.text = "Time: " + cart.time!
         cell.lblMovie.text = "Movie: " + cart.title!
         cell.lblStatus.text = "Status: " + cart.status!
+        cell.lblDateShown.text = "dateShown: " + cart.dateShown!
         
         return cell
     }
@@ -63,7 +64,7 @@ class CartsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         for cart in carts {
             if cart.status == "Unpaid" {
-                databaseRef.child("users").child(userID!).child("carts").child(cart.date! + cart.seat!).setValue(["seat": cart.seat!, "status": "Paid", "time": cart.time, "date": cart.date, "title": cart.title!])
+                databaseRef.child("users").child(userID!).child("carts").child(cart.bookingDate! + cart.seat!).setValue(["seat": cart.seat!, "status": "Paid", "time": cart.time, "bookingDate": cart.bookingDate, "title": cart.title!, "dateShown": cart.dateShown])
                 count += 1
             }
         }

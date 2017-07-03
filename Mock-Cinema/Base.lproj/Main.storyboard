@@ -155,6 +155,9 @@
                                 <date key="maximumDate" timeIntervalSinceReferenceDate="521722800">
                                     <!--2017-07-14 11:00:00 +0000-->
                                 </date>
+                                <connections>
+                                    <action selector="datePicker:" destination="Kxn-be-Rq0" eventType="valueChanged" id="57Q-X0-Efk"/>
+                                </connections>
                             </datePicker>
                         </subviews>
                         <color key="backgroundColor" red="0.94385492520000003" green="1" blue="0.69666842770000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1365,15 +1368,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="158" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xvi-Md-g0T">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="185" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xvi-Md-g0T">
                                 <rect key="frame" x="16" y="166" width="343" height="431"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartCell" rowHeight="158" id="sHL-4l-p9y" customClass="CartCellTableView" customModule="Mock_Cinema" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="158"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartCell" rowHeight="185" id="sHL-4l-p9y" customClass="CartCellTableView" customModule="Mock_Cinema" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sHL-4l-p9y" id="VUb-QK-f3d">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="158"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="185"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Buy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eff-xb-XNI">
@@ -1406,6 +1409,12 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Shown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ktp-ty-PQw">
+                                                    <rect key="frame" x="8" y="153" width="327" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Eff-xb-XNI" firstAttribute="top" secondItem="VUb-QK-f3d" secondAttribute="top" constant="8" id="7nR-cR-Y57"/>
@@ -1417,16 +1426,20 @@
                                                 <constraint firstItem="DcE-EW-OXL" firstAttribute="top" secondItem="qpN-xN-VVd" secondAttribute="bottom" constant="8" id="R3k-HO-Si4"/>
                                                 <constraint firstItem="RoM-24-uef" firstAttribute="leading" secondItem="VUb-QK-f3d" secondAttribute="leading" constant="8" id="YKQ-eW-WUI"/>
                                                 <constraint firstItem="RoM-24-uef" firstAttribute="top" secondItem="Eff-xb-XNI" secondAttribute="bottom" constant="8" id="fbs-rW-sCc"/>
+                                                <constraint firstItem="Ktp-ty-PQw" firstAttribute="leading" secondItem="VUb-QK-f3d" secondAttribute="leading" constant="8" id="fna-kW-H4T"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ktp-ty-PQw" secondAttribute="trailing" constant="8" id="jDZ-tE-9ck"/>
                                                 <constraint firstAttribute="trailing" secondItem="Eff-xb-XNI" secondAttribute="trailing" constant="8" id="lsQ-cl-0rN"/>
                                                 <constraint firstItem="qpN-xN-VVd" firstAttribute="top" secondItem="q6K-cU-kjc" secondAttribute="bottom" constant="8" id="mKq-EJ-zyw"/>
                                                 <constraint firstItem="q6K-cU-kjc" firstAttribute="top" secondItem="RoM-24-uef" secondAttribute="bottom" constant="8" id="nF2-wv-Eg2"/>
                                                 <constraint firstItem="q6K-cU-kjc" firstAttribute="leading" secondItem="VUb-QK-f3d" secondAttribute="leading" constant="8" id="rRV-R5-l6O"/>
+                                                <constraint firstItem="Ktp-ty-PQw" firstAttribute="top" secondItem="DcE-EW-OXL" secondAttribute="bottom" constant="8" id="so9-K8-gFu"/>
                                                 <constraint firstAttribute="trailing" secondItem="RoM-24-uef" secondAttribute="trailing" constant="8" id="zSy-IA-OgB"/>
                                                 <constraint firstAttribute="trailing" secondItem="DcE-EW-OXL" secondAttribute="trailing" constant="8" id="zVV-8G-kTl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="lblDate" destination="Eff-xb-XNI" id="I3g-sN-PUF"/>
+                                            <outlet property="lblDateShown" destination="Ktp-ty-PQw" id="eXt-Zu-ceg"/>
                                             <outlet property="lblMovie" destination="RoM-24-uef" id="nQH-YK-CRg"/>
                                             <outlet property="lblSeat" destination="qpN-xN-VVd" id="AHs-Qj-JWV"/>
                                             <outlet property="lblStatus" destination="DcE-EW-OXL" id="2KT-DJ-A32"/>

@@ -12,14 +12,16 @@ class Carts {
     var title: String?
     var seat: String?
     var time: String?
-    var date: String?
+    var bookingDate: String?
     var status: String?
+    var dateShown: String?
     
     init(json: [String:Any]) {
         title = json["title"] as? String
         seat = json["seat"] as? String
         time = json["time"] as? String
-        date = json["date"] as? String
+        bookingDate = json["bookingDate"] as? String
         status = json["status"] as? String
+        dateShown = json["dateShown"] as? String
     }
 }

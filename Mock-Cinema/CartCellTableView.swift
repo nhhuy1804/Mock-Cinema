@@ -15,6 +15,7 @@ class CartCellTableView: UITableViewCell {
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblSeat: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
+    @IBOutlet weak var lblDateShown: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

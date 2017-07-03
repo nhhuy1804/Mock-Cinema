@@ -17,6 +17,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
     var movie: Movie?
     var count = 0
     var seats = [Seat]()
+    var dateShown: String?
 
     @IBOutlet weak var fllSeat: UICollectionViewFlowLayout!
     @IBOutlet weak var clvSeat: UICollectionView!
@@ -29,6 +30,11 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         self.clvSeat.dataSource = self
         self.clvSeat.delegate = self
         screenId = "screen1"
+        
+        if dateShown == nil {
+            dateShown = "\(getDateTime()[0])-0\(getDateTime()[1])-0\(getDateTime()[2])"
+        }
+        print(dateShown)
         getSeats()
         /*
         if getDateTime()[3] < 9 {
@@ -107,6 +113,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         btnScreen3.isEnabled = true
         getSeats()
         clvSeat.reloadData()
+        
     }
     
     @IBAction func btnScreen3(_ sender: Any) {
@@ -131,8 +138,8 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
                 let seatID = seat.id
                 let currentDate = "\(getDateTime()[0])-\(getDateTime()[1])-\(getDateTime()[2]) \(getDateTime()[3]):\(getDateTime()[4]):\(getDateTime()[5])"
                 if let movieId = movie?.id, let movieTitle = movie?.title {
-                    databaseRef.child("movie").child("\(movieId)").child("bookTicket").child(screenId).child(seat.id!).setValue(["id": seat.id!, "status": 1])
-                    databaseRef.child("users").child(userID!).child("carts").child(currentDate + seat.id!).setValue(["movieID": movieId, "title": movieTitle, "seat": seatID ?? String(), "time": time, "date": currentDate, "status": "Unpaid"])
+                    databaseRef.child("movie").child("\(movieId)").child("bookTicket").child(dateShown!).child(screenId).child(seat.id!).setValue(["id": seat.id!, "status": 1])
+                    databaseRef.child("users").child(userID!).child("carts").child(currentDate + seat.id!).setValue(["movieID": movieId, "title": movieTitle, "seat": seatID ?? String(), "time": time, "bookingDate": currentDate, "status": "Unpaid", "dateShown": dateShown!])
                 }
             }
             
@@ -160,6 +167,16 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         myAlert.addAction(continueAction)
         
         self.present(myAlert, animated: true, completion: nil)
+    }
+    
+    @IBAction func datePicker(_ sender: Any) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateShown = dateFormatter.string(from: (sender as AnyObject).date)
+        print(dateShown)
+        seats.removeAll()
+        getSeats()
+        self.clvSeat.reloadData()
     }
     
     @IBAction func btnBack(_ sender: Any) {
@@ -200,9 +217,8 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
     
     func getSeats() {
         let databaseRef = Database.database().reference()
-        let currentDate = "\(getDateTime()[0])-\(getDateTime()[1])-\(getDateTime()[2])"
         if let movieId = movie?.id {
-            databaseRef.child("movie").child("\(movieId)").child("bookTicket").child("\(currentDate)").child(screenId).observe(.childAdded, with: {snapshot in
+            databaseRef.child("movie").child("\(movieId)").child("bookTicket").child(dateShown!).child(screenId).observe(.childAdded, with: {snapshot in
                 let snapshotValue = snapshot.value as? NSDictionary
                 self.seats.append(Seat(json: snapshotValue as! [String : Any]))
                 DispatchQueue.main.async {
