@@ -149,12 +149,6 @@
                                 <date key="date" timeIntervalSinceReferenceDate="520578617.354738">
                                     <!--2017-07-01 05:10:17 +0000-->
                                 </date>
-                                <date key="minimumDate" timeIntervalSinceReferenceDate="520603200">
-                                    <!--2017-07-01 12:00:00 +0000-->
-                                </date>
-                                <date key="maximumDate" timeIntervalSinceReferenceDate="521722800">
-                                    <!--2017-07-14 11:00:00 +0000-->
-                                </date>
                                 <connections>
                                     <action selector="datePicker:" destination="Kxn-be-Rq0" eventType="valueChanged" id="57Q-X0-Efk"/>
                                 </connections>
@@ -194,6 +188,7 @@
                         <outlet property="btnScreen2" destination="ebY-Lv-kau" id="saZ-mC-I0F"/>
                         <outlet property="btnScreen3" destination="mSx-GN-sVC" id="2Pz-lv-zdg"/>
                         <outlet property="clvSeat" destination="tiR-cy-qZn" id="Jh0-ei-uRx"/>
+                        <outlet property="datePicker" destination="FgT-6c-ELb" id="MUB-JQ-Nsv"/>
                         <outlet property="fllSeat" destination="wSi-J8-FXE" id="9jB-0R-JG3"/>
                     </connections>
                 </viewController>

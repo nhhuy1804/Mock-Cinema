@@ -24,6 +24,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var btnScreen1: UIButton!
     @IBOutlet weak var btnScreen2: UIButton!
     @IBOutlet weak var btnScreen3: UIButton!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +32,12 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         self.clvSeat.delegate = self
         screenId = "screen1"
         
+        datePicker.minimumDate = Date()
+        datePicker.maximumDate = getDate(releaseInformation: (movie?.releaseInformation)!).addingTimeInterval(1209000)
+        
         if dateShown == nil {
             dateShown = "\(getDateTime()[0])-0\(getDateTime()[1])-0\(getDateTime()[2])"
         }
-        print(dateShown)
         getSeats()
         /*
         if getDateTime()[3] < 9 {
@@ -85,6 +88,14 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         */
         
         // Do any additional setup after loading the view.
+    }
+    
+    func getDate(releaseInformation: String) -> Date {
+        let dateFormat = DateFormatter()
+        dateFormat.dateStyle = DateFormatter.Style.short
+        let date = dateFormat.date(from: releaseInformation)
+        //date?.addTimeInterval(interval)
+        return date!
     }
     
     @IBAction func btnScreen1(_ sender: Any) {
@@ -173,7 +184,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateShown = dateFormatter.string(from: (sender as AnyObject).date)
-        print(dateShown)
+        //print(dateShown)
         seats.removeAll()
         getSeats()
         self.clvSeat.reloadData()
