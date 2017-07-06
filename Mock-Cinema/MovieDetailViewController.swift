@@ -67,9 +67,23 @@ class MovieDetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let seatsVC = segue.destination as! ChooseSeatViewController
-        seatsVC.movie = movie
-        seatsVC.screenId = "screen1"
+        
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "ChooseSeat":
+                let seatsVC = segue.destination as! ChooseSeatViewController
+                seatsVC.movie = movie
+                seatsVC.screenId = "screen1"
+                break
+            case "ShowTrailer":
+                let urlTrailerVC = segue.destination as! TrailerViewController
+                urlTrailerVC.urlTrailer = movie?.urlTrailer
+                break
+            default:
+                break
+            }
+        }
+
     }
     
     //get date from database

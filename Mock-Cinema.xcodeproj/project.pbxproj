@@ -22,6 +22,7 @@
 		F642765B1EE9708900D9C5E9 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642765A1EE9708900D9C5E9 /* Movie.swift */; };
 		F642765D1EE972E200D9C5E9 /* MovieListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */; };
 		F65018241EE710420079AC88 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65018231EE710410079AC88 /* UserProfileViewController.swift */; };
+		F6A6441E1F0E8AAE00FB2BCF /* TrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A6441D1F0E8AAE00FB2BCF /* TrailerViewController.swift */; };
 		F6BCA4DB1EF243F7002C14E5 /* Carts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BCA4DA1EF243F7002C14E5 /* Carts.swift */; };
 		F6BCA4DE1EF2441B002C14E5 /* CartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BCA4DC1EF2441B002C14E5 /* CartsViewController.swift */; };
 		F6BCA4DF1EF2441B002C14E5 /* CartCellTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BCA4DD1EF2441B002C14E5 /* CartCellTableView.swift */; };
@@ -49,6 +50,7 @@
 		F642765A1EE9708900D9C5E9 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListTableViewCell.swift; sourceTree = "<group>"; };
 		F65018231EE710410079AC88 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		F6A6441D1F0E8AAE00FB2BCF /* TrailerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerViewController.swift; sourceTree = "<group>"; };
 		F6BCA4DA1EF243F7002C14E5 /* Carts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carts.swift; sourceTree = "<group>"; };
 		F6BCA4DC1EF2441B002C14E5 /* CartsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartsViewController.swift; sourceTree = "<group>"; };
 		F6BCA4DD1EF2441B002C14E5 /* CartCellTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCellTableView.swift; sourceTree = "<group>"; };
@@ -92,7 +94,6 @@
 		F615994F1EE6C85600ADE954 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */,
 				3888F5D61EE2AB7D006BE831 /* LoginViewController.swift */,
 				3888F5D81EE2B075006BE831 /* RegisterViewController.swift */,
 				F65018231EE710410079AC88 /* UserProfileViewController.swift */,
@@ -104,6 +105,7 @@
 				7810247B1EF11F1B004451E1 /* NetworkViewController.swift */,
 				F6BCA4DC1EF2441B002C14E5 /* CartsViewController.swift */,
 				F6BCA4DD1EF2441B002C14E5 /* CartCellTableView.swift */,
+				F6A6441D1F0E8AAE00FB2BCF /* TrailerViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -155,6 +157,7 @@
 				F6C3CA8B1EE1912400028722 /* AppDelegate.swift */,
 				F6C3CA921EE1912400028722 /* Assets.xcassets */,
 				F6C3CA971EE1912400028722 /* Info.plist */,
+				F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */,
 				3888F5D41EE2A23E006BE831 /* GoogleService-Info.plist */,
 			);
 			path = "Mock-Cinema";
@@ -292,6 +295,7 @@
 				F6C3CA8C1EE1912400028722 /* AppDelegate.swift in Sources */,
 				7810247C1EF11F1B004451E1 /* NetworkViewController.swift in Sources */,
 				38E89AC31EE7F7CD007AB117 /* ChangePasswordViewController.swift in Sources */,
+				F6A6441E1F0E8AAE00FB2BCF /* TrailerViewController.swift in Sources */,
 				38E89AC11EE7DC8A007AB117 /* MovieListViewController.swift in Sources */,
 				F64276591EE9705400D9C5E9 /* Download.swift in Sources */,
 				F63B0CC31EEBAD0F000CF286 /* MovieDetailViewController.swift in Sources */,

@@ -19,6 +19,7 @@ class Movie {
     var originalLanguage: String?
     var budget: String?
     var image: UIImage?
+    var urlTrailer: String?
     
     init(json: [String:Any]) {
         id = json["id"] as? Int
@@ -29,6 +30,7 @@ class Movie {
         runTime = json["runTime"] as? String
         originalLanguage = json["originalLanguage"] as? String
         budget = json["budget"] as? String
+        urlTrailer = json["urlTrailer"] as? String
     }
     
 }

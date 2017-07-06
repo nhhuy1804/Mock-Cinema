@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class MovieListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MovieListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,UISearchResultsUpdating {
     
     @IBOutlet weak var loginLogoutBtn: UIButton!
     @IBOutlet weak var helloBtn: UIButton!
@@ -19,6 +19,8 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var btnPlayingNow: UIButton!
     @IBOutlet weak var btnComingSoon: UIButton!
     
+    @IBOutlet weak var loadMovie: UIActivityIndicatorView!
+    
     var movies = [Movie]()
     var moviesStatus = [Movie]()
     var posterImage: [Int:UIImage] = [:]
@@ -26,16 +28,11 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        filteredMovie = moviesStatus.filter { movie in
-            return (movie.title?.lowercased().contains(searchText.lowercased()))!
-        }
-        tbvMovieList.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
+        
+        loadMovie.startAnimating()
+        searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tbvMovieList.tableHeaderView = searchController.searchBar
@@ -99,6 +96,8 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func btnOldMovies(_ sender: Any) {
+        searchController.isActive = false
+        searchController.searchBar.text = ""
         btnOldMovies.isEnabled = false
         btnComingSoon.isEnabled = true
         btnPlayingNow.isEnabled = true
@@ -113,6 +112,8 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func btnPlayingNow(_ sender: Any) {btnOldMovies.isEnabled = false
+        searchController.isActive = false
+        searchController.searchBar.text = ""
         btnOldMovies.isEnabled = true
         btnComingSoon.isEnabled = true
         btnPlayingNow.isEnabled = false
@@ -127,6 +128,8 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func btnComingSoon(_ sender: Any) {
+        searchController.isActive = false
+        searchController.searchBar.text = ""
         btnOldMovies.isEnabled = true
         btnComingSoon.isEnabled = false
         btnPlayingNow.isEnabled = true
@@ -200,6 +203,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             self.getPlayingNowMovies()
         })
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -230,7 +234,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         OperationQueue().addOperation { () -> Void in
             if let img = Downloader.downloadImageWithURL(movie.posterURL) {
                 OperationQueue.main.addOperation({
-                    self.posterImage[self.moviesStatus[indexPath.row].id!] = img
+                    //self.posterImage[self.moviesStatus[indexPath.row].id!] = img
                     cell.imgPoster?.image = img
                 })
             }
@@ -238,14 +242,12 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         
         cell.lblTitle?.text = movie.title
         cell.lblOverview?.text = movie.overview
-        
+        loadMovie.stopAnimating()
         return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier != nil {
-            
             let movieDetailVC = segue.destination as! MovieDetailViewController
             if let indexPath = self.tbvMovieList.indexPathForSelectedRow {
                 if searchController.isActive && searchController.searchBar.text != "" {
@@ -253,14 +255,17 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
                 } else {
                     movieDetailVC.movie = moviesStatus[indexPath.row]
                 }
-                
             }
         }
     }
     
-}
-
-extension MovieListViewController: UISearchResultsUpdating {
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        filteredMovie = moviesStatus.filter { movie in
+            return (movie.title?.lowercased().contains(searchText.lowercased()))!
+        }
+        tbvMovieList.reloadData()
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchText: searchController.searchBar.text!)
     }
