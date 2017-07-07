@@ -30,7 +30,6 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
         self.clvSeat.dataSource = self
         self.clvSeat.delegate = self
-        screenId = "screen1"
         
         datePicker.minimumDate = Date()
         datePicker.maximumDate = getDate(releaseInformation: (movie?.releaseInformation)!).addingTimeInterval(1209000)
@@ -39,55 +38,17 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
             dateShown = "\(getDateTime()[0])-0\(getDateTime()[1])-0\(getDateTime()[2])"
         }
         getSeats()
-        /*
-        if getDateTime()[3] < 9 {
-            screenId = "screen1"
-            time = "9:00"
-            
-            btnScreen1.backgroundColor = UIColor.brown
-            btnScreen2.backgroundColor = UIColor.red
-            btnScreen3.backgroundColor = UIColor.red
-            btnScreen1.isEnabled = false
-            btnScreen2.isEnabled = true
-            btnScreen3.isEnabled = true
-            getSeats()
-            
-        } else if getDateTime()[3] > 9 && getDateTime()[3] < 15 {
-            screenId = "screen2"
-            time = "15:00"
-            
-            btnScreen1.isHidden = true
-            btnScreen2.backgroundColor = UIColor.brown
-            btnScreen3.backgroundColor = UIColor.red
-            btnScreen1.isEnabled = false
-            btnScreen2.isEnabled = true
-            btnScreen3.isEnabled = true
-            getSeats()
-            
-        } else if getDateTime()[3] > 15 && getDateTime()[3] < 20  {
-            screenId = "screen3"
-            time = "20:00"
-            
-            btnScreen1.isHidden = true
-            btnScreen2.isHidden = true
-            btnScreen3.backgroundColor = UIColor.brown
-            btnScreen1.isEnabled = false
-            btnScreen2.isEnabled = false
-            btnScreen3.isEnabled = true
-            getSeats()
-        } else {
-            btnScreen1.isHidden = true
-            btnScreen2.isHidden = true
-            btnScreen3.isHidden = true
-            btnScreen1.isEnabled = false
-            btnScreen2.isEnabled = false
-            btnScreen3.isEnabled = false
-            clvSeat.isHidden = true
-            
-        }
-        */
+        getShowTime()
+        print(getDateToString(date: datePicker.date))
+        print(getDateToString(date: Date()))
         
-        // Do any additional setup after loading the view.
+    }
+    
+    func getDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
     }
     
     func getDate(releaseInformation: String) -> Date {
@@ -96,6 +57,67 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         let date = dateFormat.date(from: releaseInformation)
         //date?.addTimeInterval(interval)
         return date!
+    }
+    
+    func getShowTime() {
+        if getDateToString(date: datePicker.date) == getDateToString(date: Date()) {
+            if getDateTime()[3] < 9 {
+                screenId = "screen1"
+                time = "9:00"
+                
+                btnScreen1.backgroundColor = UIColor.brown
+                btnScreen2.backgroundColor = UIColor.red
+                btnScreen3.backgroundColor = UIColor.red
+                btnScreen1.isEnabled = false
+                btnScreen2.isEnabled = true
+                btnScreen3.isEnabled = true
+                getSeats()
+                
+            } else if getDateTime()[3] > 9 && getDateTime()[3] < 15 {
+                screenId = "screen2"
+                time = "15:00"
+                
+                btnScreen1.isHidden = true
+                btnScreen2.backgroundColor = UIColor.brown
+                btnScreen3.backgroundColor = UIColor.red
+                btnScreen1.isEnabled = false
+                btnScreen2.isEnabled = true
+                btnScreen3.isEnabled = true
+                getSeats()
+                
+            } else if getDateTime()[3] > 15 && getDateTime()[3] < 20  {
+                screenId = "screen3"
+                time = "20:00"
+                
+                btnScreen1.isHidden = true
+                btnScreen2.isHidden = true
+                btnScreen3.backgroundColor = UIColor.brown
+                btnScreen1.isEnabled = false
+                btnScreen2.isEnabled = false
+                btnScreen3.isEnabled = true
+                getSeats()
+            } else {
+                screenId = "screen1"
+                time = "9:00"
+                btnScreen1.isHidden = true
+                btnScreen2.isHidden = true
+                btnScreen3.isHidden = true
+                btnScreen1.isEnabled = false
+                btnScreen2.isEnabled = false
+                btnScreen3.isEnabled = false
+                clvSeat.isHidden = true
+            }
+        } else {
+            btnScreen1.isHidden = false
+            btnScreen2.isHidden = false
+            btnScreen3.isHidden = false
+            btnScreen1.isEnabled = false
+            btnScreen2.isEnabled = true
+            btnScreen3.isEnabled = true
+            btnScreen1.backgroundColor = UIColor.brown
+            btnScreen2.backgroundColor = UIColor.red
+            btnScreen3.backgroundColor = UIColor.red
+        }
     }
     
     @IBAction func btnScreen1(_ sender: Any) {
@@ -186,6 +208,7 @@ class ChooseSeatViewController: UIViewController, UICollectionViewDataSource, UI
         dateShown = dateFormatter.string(from: (sender as AnyObject).date)
         //print(dateShown)
         seats.removeAll()
+        getShowTime()
         getSeats()
         self.clvSeat.reloadData()
     }

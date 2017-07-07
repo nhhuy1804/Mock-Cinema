@@ -100,6 +100,7 @@
 				38E89AC01EE7DC8A007AB117 /* MovieListViewController.swift */,
 				38E89AC21EE7F7CD007AB117 /* ChangePasswordViewController.swift */,
 				F63B0CC21EEBAD0E000CF286 /* MovieDetailViewController.swift */,
+				F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */,
 				F63B0CC41EEEDB41000CF286 /* ChooseSeatViewController.swift */,
 				F63B0CC91EEEDE91000CF286 /* SeatCellCollectionView.swift */,
 				7810247B1EF11F1B004451E1 /* NetworkViewController.swift */,
@@ -157,7 +158,6 @@
 				F6C3CA8B1EE1912400028722 /* AppDelegate.swift */,
 				F6C3CA921EE1912400028722 /* Assets.xcassets */,
 				F6C3CA971EE1912400028722 /* Info.plist */,
-				F642765C1EE972E200D9C5E9 /* MovieListTableViewCell.swift */,
 				3888F5D41EE2A23E006BE831 /* GoogleService-Info.plist */,
 			);
 			path = "Mock-Cinema";
